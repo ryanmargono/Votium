@@ -77,3 +77,19 @@ calculateRewards({"ousd":802945.5,"cvxcrv":1917643.55,"3eur":516796.03,"cvxeth":
 ```
 
 7. You should see a list of your total rewards in descending order in the Snapshot console.
+
+```
+musd: 1692.3911833290806
+d3pool: 1551.981357210117
+ust-wormhole: 1414.820190880298
+3eur: 1377.076864890655
+cvxcrv: 1352.1708490615374
+cvxeth: 1345.0168735349605
+rai: 1330.1835737950857
+usdp: 1323.8564325517928
+aleth: 1299.0858978153333
+ousd: 1286.0934947981384
+mim-ust: 1284.8181864582386
+alusd: 1278.914109481932
+frax: 1182.9259712258818
+```

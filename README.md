@@ -7,7 +7,7 @@ How to use:
 ```
 const scrapeVotium = () => {
     const getPoolName = bribe => {
-        const titles = bribe.getElementsByClassName("MuiTypography-root jss217 MuiTypography-body1")
+        const titles = bribe.getElementsByClassName("MuiTypography-root MuiTypography-body1")
         return titles[0].innerText.split(`"`)[1]
     }
 
@@ -17,7 +17,8 @@ const scrapeVotium = () => {
         return parseFloat(strippedPrice)
     }
 
-    const bribes = Array.from(document.getElementsByClassName("MuiPaper-root jss204 MuiPaper-elevation1 MuiPaper-rounded"))
+    const bribes = Array.from(document.getElementsByClassName("MuiPaper-root"))
+        .slice(2)
         .map(bribe => ({ pool: getPoolName(bribe), reward: getReward(bribe) }))
         .reduce((res, bribe) => {
             res[bribe.pool] = (res[bribe.pool] || 0) + bribe.reward

@@ -40,7 +40,7 @@ scrapeVotium()
 5. On the Snapshot tab pate in the console:
 
 ```
-const calculateRewards = (votiumData, ownedVlCvxCount) => {
+const calculateRewards = (ownedVlCvxCount, votiumData) => {
 
     const scrapeSnapshot = () => {
         const getPoolName = reward => reward.getElementsByClassName("mr-1")[0].innerText
@@ -49,9 +49,9 @@ const calculateRewards = (votiumData, ownedVlCvxCount) => {
             const count = reward.getElementsByClassName("inline-block")[0].innerText.split(' ')[0]
             const suffix = count[count.length-1]
 
-            if (suffix === 'm') {
+            if (suffix === 'm' || suffix === 'M') {
                 return parseFloat(count.substring(0, count.length-1)) * 1000000
-            } else if (suffix === 'k')
+            } else if (suffix === 'k' || suffix === 'K')
                 return parseFloat(count.substring(0, count.length-1)) * 1000
             return parseFloat(count)
         }
@@ -74,7 +74,7 @@ const calculateRewards = (votiumData, ownedVlCvxCount) => {
 6. Run the function in the console with the following method signature: `calculateRewards(outputDataFromVotiumScript, yourOwnedVlCvxCount)`
 
 ```
-calculateRewards({"ousd":802945.5,"cvxcrv":1917643.55,"3eur":516796.03,"cvxeth":1180500,"musd":55439.99,"usdp":65000,"ust-wormhole":2566049.2,"rai":290211.18,"d3pool":187166.12,"aleth":491980,"mim-ust":1305514,"frax":7050020.68,"alusd":578800}, 1517.08)
+calculateRewards(1517.08, {"ousd":544610.5,"3eur":290049.75,"cvxcrv":1334880,"cvxeth":834300,"rai":130687.2,"ust-wormhole":4287624.12,"steth":385000,"mim-ust":536226.51,"d3pool":423866.96,"alusd":314640,"aleth":267444,"frax":6156955.6,"teth":301381.5})
 ```
 
 7. You should see a list of your total rewards in descending order in the Snapshot console.

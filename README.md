@@ -43,10 +43,10 @@ scrapeVotium()
 const calculateRewards = (ownedVlCvxCount, votiumData) => {
 
     const scrapeSnapshot = () => {
-        const getPoolName = reward => reward.getElementsByClassName("mr-1")[0].innerText
+        const getPoolName = reward => reward.getElementsByTagName("span")[0].innerText
 
         const getVoteCount = reward => {
-            const count = reward.getElementsByClassName("inline-block")[0].innerText.split(' ')[0]
+            const count = reward.getElementsByTagName("span")[1].innerText.split(' ')[0]
             const suffix = count[count.length-1]
 
             if (suffix === 'm' || suffix === 'M') {
@@ -55,7 +55,6 @@ const calculateRewards = (ownedVlCvxCount, votiumData) => {
                 return parseFloat(count.substring(0, count.length-1)) * 1000
             return parseFloat(count)
         }
-
         return Array.from(document.getElementsByClassName("link-color mb-1"))
             .map(reward => ({pool: getPoolName(reward), voteCount: getVoteCount(reward)}))
     }
@@ -64,6 +63,8 @@ const calculateRewards = (ownedVlCvxCount, votiumData) => {
 
     const incentivizedPools = snapshotData.filter(sData => !!votiumData[sData.pool])
         .map(sData => ({...sData, reward: votiumData[sData.pool] }))
+
+        console.log(incentivizedPools)
 
     incentivizedPools.map(p => ({...p, payout: (p.reward / (p.voteCount + ownedVlCvxCount)) * ownedVlCvxCount}))
         .sort((a,b) => a.payout < b.payout)
@@ -74,7 +75,8 @@ const calculateRewards = (ownedVlCvxCount, votiumData) => {
 6. Run the function in the console with the following method signature: `calculateRewards(outputDataFromVotiumScript, yourOwnedVlCvxCount)`
 
 ```
-calculateRewards(1517.08, {"ousd":544610.5,"3eur":290049.75,"cvxcrv":1334880,"cvxeth":834300,"rai":130687.2,"ust-wormhole":4287624.12,"steth":385000,"mim-ust":536226.51,"d3pool":423866.96,"alusd":314640,"aleth":267444,"frax":6156955.6,"teth":301381.5})
+const data ={"ust-wormhole":4387904.61,"musd":41798.83,"cvxcrv":1333079.56,"cvxeth":832500,"alusd":515396,"aleth":331326,"d3pool":416398.75,"3eur":389373.75,"steth":547500,"frax":7020424.88,"rai":161977.2,"teth":400007.12,"mim-ust":453516.62}
+calculateRewards(104.08 , data)
 ```
 
 7. You should see a list of your total rewards in descending order in the Snapshot console.
